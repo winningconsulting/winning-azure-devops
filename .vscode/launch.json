@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Teams notification task (local)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/run-local.js",
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env.local",
+      "args": ["--buildId", "${env:BUILD_ID}"]
+    }
+  ]
+}

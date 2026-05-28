@@ -1,0 +1,13 @@
+{
+  "cardTitle": "Test failures / inconclusive",
+  "cardTitleSuccess": "All tests passed",
+  "statsTotal": "Total",
+  "statsPassed": "Passed",
+  "statsFailed": "Failed",
+  "statsInconclusive": "Inconclusive",
+  "statsTestsLabel": "tests",
+  "sectionFailed": "Failed tests",
+  "sectionInconclusive": "Inconclusive tests",
+  "actionViewDetails": "View details",
+  "moreTests": "... and {0} more tests"
+}

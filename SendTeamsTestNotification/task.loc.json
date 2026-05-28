@@ -1,0 +1,5 @@
+{
+  "loc.friendlyName": "Send Teams test notification",
+  "loc.description": "Posts a Microsoft Teams Adaptive Card when build tests failed or are inconclusive (optional success notification).",
+  "loc.helpMarkDown": "Requires a Teams incoming webhook URL and access to Azure DevOps Test APIs. Enable **Allow scripts to access the OAuth token** on the job."
+}

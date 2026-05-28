@@ -1,0 +1,86 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+  "id": "f8c4e2a1-9b3d-4e6f-a2c1-7d5e9b0a3f6c",
+  "name": "SendTeamsTestNotification",
+  "friendlyName": "Send Teams test notification",
+  "description": "Posts a Microsoft Teams Adaptive Card when build tests failed or are inconclusive (optional success notification).",
+  "helpMarkDown": "Requires a Teams incoming webhook URL and access to Azure DevOps Test APIs. Enable **Allow scripts to access the OAuth token** on the job and set `SYSTEM_ACCESSTOKEN` to `$(System.AccessToken)`.",
+  "category": "Utility",
+  "visibility": ["Build", "Release"],
+  "author": "Winning",
+  "version": {
+    "Major": 1,
+    "Minor": 0,
+    "Patch": 0
+  },
+  "instanceNameFormat": "Teams test notification (build $(buildId))",
+  "inputs": [
+    {
+      "name": "teamsWebhookUrl",
+      "type": "string",
+      "label": "Teams webhook URL",
+      "required": true,
+      "secret": true
+    },
+    {
+      "name": "buildId",
+      "type": "string",
+      "label": "Build ID",
+      "defaultValue": "$(Build.BuildId)",
+      "required": true
+    },
+    {
+      "name": "organizationUri",
+      "type": "string",
+      "label": "Organization URI",
+      "defaultValue": "$(System.TeamFoundationCollectionUri)",
+      "required": true
+    },
+    {
+      "name": "projectName",
+      "type": "string",
+      "label": "Project name",
+      "defaultValue": "$(System.TeamProject)",
+      "required": true
+    },
+    {
+      "name": "language",
+      "type": "pickList",
+      "label": "Language",
+      "defaultValue": "en",
+      "options": {
+        "en": "English",
+        "pt-PT": "Portuguese (Portugal)"
+      }
+    },
+    {
+      "name": "cardTitle",
+      "type": "string",
+      "label": "Card title override",
+      "required": false
+    },
+    {
+      "name": "openAttachmentsPane",
+      "type": "boolean",
+      "label": "Open attachments pane on test links",
+      "defaultValue": "false"
+    },
+    {
+      "name": "debugMode",
+      "type": "boolean",
+      "label": "Debug mode (log payload)",
+      "defaultValue": "false"
+    },
+    {
+      "name": "notifyOnSuccess",
+      "type": "boolean",
+      "label": "Notify when all tests passed",
+      "defaultValue": "false"
+    }
+  ],
+  "execution": {
+    "Node20_1": {
+      "target": "lib/index.js"
+    }
+  }
+}

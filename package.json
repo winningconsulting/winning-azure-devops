@@ -1,0 +1,12 @@
+{
+  "name": "winning-azure-devops",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Winning Azure DevOps toolkit — custom pipeline tasks",
+  "scripts": {
+    "build": "npm run build --prefix SendTeamsTestNotification",
+    "test": "npm run test --prefix SendTeamsTestNotification",
+    "start:local": "node scripts/run-local.js",
+    "package:extension": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-extension.ps1"
+  }
+}

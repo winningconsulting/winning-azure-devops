@@ -1,0 +1,35 @@
+{
+  "manifestVersion": 1,
+  "id": "winning-azure-devops",
+  "name": "Winning Azure DevOps",
+  "version": "1.0.0",
+  "publisher": "Winning",
+  "description": "Winning toolkit for Azure Pipelines — Teams notifications for test results and related utilities.",
+  "public": false,
+  "categories": ["Azure Pipelines"],
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "content": {
+    "details": {
+      "path": "extension/overview.md"
+    }
+  },
+  "files": [
+    {
+      "path": "../SendTeamsTestNotification"
+    }
+  ],
+  "contributions": [
+    {
+      "id": "send-teams-test-notification",
+      "type": "ms.vss-distributed-task.task",
+      "targets": ["ms.vss-distributed-task.tasks"],
+      "properties": {
+        "name": "SendTeamsTestNotification"
+      }
+    }
+  ]
+}

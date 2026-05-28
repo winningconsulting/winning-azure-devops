@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: SendTeamsTestNotification/package-lock.json
+      - name: Install and test
+        working-directory: SendTeamsTestNotification
+        run: |
+          npm ci
+          npm run build
+          npm test
+
+  build-test-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install and test
+        working-directory: SendTeamsTestNotification
+        run: |
+          npm ci
+          npm run build
+          npm test

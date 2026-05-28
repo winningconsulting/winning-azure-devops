@@ -1,0 +1,60 @@
+# Reusable template: build and run Send Teams test notification from this repo.
+# Requires variable TeamsWebhookUrl (secret) on the pipeline / variable group.
+parameters:
+  - name: teamsWebhookUrl
+    type: string
+  - name: buildId
+    type: string
+    default: '$(Build.BuildId)'
+  - name: organizationUri
+    type: string
+    default: '$(System.TeamFoundationCollectionUri)'
+  - name: projectName
+    type: string
+    default: '$(System.TeamProject)'
+  - name: language
+    type: string
+    default: en
+  - name: cardTitle
+    type: string
+    default: ''
+  - name: openAttachmentsPane
+    type: boolean
+    default: false
+  - name: debugMode
+    type: boolean
+    default: false
+  - name: notifyOnSuccess
+    type: boolean
+    default: false
+  - name: nodeVersion
+    type: string
+    default: '20.x'
+
+steps:
+  - task: NodeTool@0
+    displayName: Use Node.js
+    inputs:
+      versionSpec: ${{ parameters.nodeVersion }}
+
+  - script: npm ci && npm run build
+    displayName: Build Teams notification task
+    workingDirectory: $(Build.SourcesDirectory)/SendTeamsTestNotification
+
+  - task: Bash@3
+    displayName: Send Teams test notification
+    env:
+      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+      TEAMS_WEBHOOK_URL: ${{ parameters.teamsWebhookUrl }}
+      BUILD_ID: ${{ parameters.buildId }}
+      ORGANIZATION_URI: ${{ parameters.organizationUri }}
+      PROJECT_NAME: ${{ parameters.projectName }}
+      LANGUAGE: ${{ parameters.language }}
+      CARD_TITLE: ${{ parameters.cardTitle }}
+      TEAMS_OPEN_ATTACHMENTS_PANE: ${{ lower(parameters.openAttachmentsPane) }}
+      DEBUG_MODE: ${{ lower(parameters.debugMode) }}
+      NOTIFY_ON_SUCCESS: ${{ lower(parameters.notifyOnSuccess) }}
+    inputs:
+      targetType: inline
+      script: node "$(Build.SourcesDirectory)/scripts/run-local.js"
+
