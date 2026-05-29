@@ -15,7 +15,7 @@ if (-not (Get-Command tfx -ErrorAction SilentlyContinue)) {
 }
 
 Set-Location $repoRoot
-tfx extension create --manifest-globs extension/vss-extension.json
+tfx extension create --manifest-globs vss-extension.json --root $repoRoot
 if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
 }

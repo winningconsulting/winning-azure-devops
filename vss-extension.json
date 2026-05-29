@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "winning-azure-devops",
   "name": "Winning Azure DevOps",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "Winning",
   "description": "Winning toolkit for Azure Pipelines — Teams notifications for test results and related utilities.",
   "public": false,
@@ -19,7 +19,8 @@
   },
   "files": [
     {
-      "path": "../SendTeamsTestNotification"
+      "path": "SendTeamsTestNotification",
+      "addressable": true
     }
   ],
   "contributions": [

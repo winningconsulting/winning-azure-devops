@@ -94,7 +94,7 @@ stages:
 Publisher **Winning**, extension **winning-azure-devops**. After installing the `.vsix` in your organization:
 
 ```yaml
-- task: Winning.winning-azure-devops.SendTeamsTestNotification@1
+- task: SendTeamsTestNotification@1
   inputs:
     teamsWebhookUrl: $(TeamsWebhookUrl)
 ```
