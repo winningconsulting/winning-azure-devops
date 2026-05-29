@@ -19,40 +19,27 @@ Store the URL in Azure DevOps as a **secret variable** (for example `TeamsWebhoo
 
 Official reference: [Send messages in Teams using incoming webhooks](https://support.microsoft.com/en-US/Workflows/send-messages-in-teams-using-incoming-webhooks).
 
-### Pipeline authentication (Azure DevOps Test API)
 
-The task reads test results from the Azure DevOps REST API. In YAML pipelines:
+### Usage — installed extension (recommended)
+
+Publisher **Winning**, extension **winning-azure-devops**. Install the `.vsix` in your organization (**Organization settings → Extensions → Shared**), then add the task to your pipeline:
 
 ```yaml
-jobs:
-  - job: notify
-    steps:
-      # ...
-    env:
-      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+- task: SendTeamsTestNotification@1
+  displayName: Notify Teams on test failures
+  inputs:
+    teamsWebhookUrl: $(TeamsWebhookUrl)
 ```
 
-Enable **Allow scripts to access the OAuth token** on the job (classic UI: job → additional options).
+Other inputs use pipeline defaults (`buildId`, `organizationUri`, `projectName`, `language`, and so on).
 
-For **local** runs, use a Personal Access Token with at least **Build (Read)** and **Test Management (Read)** in `ADO_PAT` (see below).
+### Usage — without installing the extension (template)
 
-### Task inputs
+If you cannot install organization extensions, check out this repository in the pipeline and run the task via the included YAML template (same behavior as the extension task).
 
-| Input | Required | Default | Description |
-|--------|----------|---------|-------------|
-| `teamsWebhookUrl` | Yes | — | Teams incoming webhook URL (secret) |
-| `buildId` | Yes | `$(Build.BuildId)` | Build to inspect |
-| `organizationUri` | Yes | `$(System.TeamFoundationCollectionUri)` | Collection URL |
-| `projectName` | Yes | `$(System.TeamProject)` | Project name |
-| `language` | No | `en` | `en` or `pt-PT` (text of the published notification) |
-| `cardTitle` | No | — | Override card title (localized default if empty) |
-| `openAttachmentsPane` | No | `false` | Per-test links send directly to the attachments pane |
-| `debugMode` | No | `false` | Print full notification JSON to the console (still POSTs unless skipped by policy) |
-| `notifyOnSuccess` | No | `false` | Also POST when all tests passed |
+The template builds the task from source and runs it through `scripts/run-local.js` in a **Bash** step, so the pipeline must expose the build’s OAuth token to that script. Enable **Allow scripts to access the OAuth token** on the job; the template maps `$(System.AccessToken)` to `SYSTEM_ACCESSTOKEN` for the script (you do not need a separate `env` block in your YAML unless you customize the template).
 
-### Usage A — template from this repository
-
-Reference the public GitHub repo in your pipeline (create a **GitHub** service connection in Azure DevOps if you do not have one; it can access public repositories), then include the template:
+Reference the public GitHub repo (create a **GitHub** service connection in Azure DevOps if needed; it can access public repositories):
 
 ```yaml
 resources:
@@ -82,67 +69,25 @@ stages:
           - template: templates/send-teams-test-notification.yml@winningAzureDevOpsLibrary
             parameters:
               teamsWebhookUrl: $(TeamsWebhookUrl)
-              buildId: $(Build.BuildId)
-              organizationUri: $(System.TeamFoundationCollectionUri)
-              projectName: $(System.TeamProject)
-            env:
-              SYSTEM_ACCESSTOKEN: $(System.AccessToken)
-```   
-
-### Usage B — installed extension (private VSIX)
-
-Publisher **Winning**, extension **winning-azure-devops**. After installing the `.vsix` in your organization:
-
-```yaml
-- task: SendTeamsTestNotification@1
-  inputs:
-    teamsWebhookUrl: $(TeamsWebhookUrl)
 ```
 
-Package the extension:
+### Task inputs
 
-```powershell
-npm run package:extension
-```
+| Input | Required | Default | Description |
+|--------|----------|---------|-------------|
+| `teamsWebhookUrl` | Yes | — | Teams incoming webhook URL (secret) |
+| `buildId` | Yes | `$(Build.BuildId)` | Build to inspect |
+| `organizationUri` | Yes | `$(System.TeamFoundationCollectionUri)` | Collection URL |
+| `projectName` | Yes | `$(System.TeamProject)` | Project name |
+| `language` | No | `en` | `en` or `pt-PT` (text of the published notification) |
+| `cardTitle` | No | — | Override card title (localized default if empty) |
+| `openAttachmentsPane` | No | `false` | Per-test links send directly to the attachments pane |
+| `debugMode` | No | `false` | Print full notification JSON to the console (still POSTs unless skipped by policy) |
+| `notifyOnSuccess` | No | `false` | Also POST when all tests passed |
 
-Requires [TFX CLI](https://github.com/microsoft/tfs-cli) (`npm install -g tfx-cli`). Upload the generated `.vsix` under **Organization settings → Extensions → Shared**.
+### Contributing
 
-### Local testing
-
-1. Copy [`.env.example`](.env.example) to `.env.local` and set `TEAMS_WEBHOOK_URL`, `ADO_PAT`, `ORGANIZATION_URI`, `PROJECT_NAME`, and `BUILD_ID` (optional: `LANGUAGE`, `CARD_TITLE`, `DEBUG_MODE`, `TEAMS_OPEN_ATTACHMENTS_PANE`, `NOTIFY_ON_SUCCESS`).
-2. Build and run via [`scripts/run-local.js`](scripts/run-local.js) (same entry point as the pipeline template):
-
-```bash
-npm run build
-npm run start:local -- --buildId 12345
-```
-
-Or run unit tests without calling Teams/ADO:
-
-```bash
-npm test
-```
-
-Preview the Adaptive Card JSON in a local viewer (embedded fake scenarios, no ADO):
-
-```bash
-npm run build
-npm run preview:card -- --list-scenarios
-npm run preview:card -- --scenario failure-truncated -o adaptive-card.preview.json
-```
-
-Use `--buildId <id>` (with `.env.local` ADO credentials) for a real build, or `--teams` for the full webhook envelope.
-
-VS Code: use **Run Teams notification task (local)** in `.vscode/launch.json` (loads `.env.local`, runs `run-local.js`).
-
-### Development
-
-```bash
-cd SendTeamsTestNotification
-npm ci
-npm run build
-npm test
-```
+Building the VSIX, running the task locally, previewing Adaptive Cards, and other maintainer workflows are documented in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### License
 
