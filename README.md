@@ -123,6 +123,16 @@ Or run unit tests without calling Teams/ADO:
 npm test
 ```
 
+Preview the Adaptive Card JSON in a local viewer (embedded fake scenarios, no ADO):
+
+```bash
+npm run build
+npm run preview:card -- --list-scenarios
+npm run preview:card -- --scenario failure-truncated -o adaptive-card.preview.json
+```
+
+Use `--buildId <id>` (with `.env.local` ADO credentials) for a real build, or `--teams` for the full webhook envelope.
+
 VS Code: use **Run Teams notification task (local)** in `.vscode/launch.json` (loads `.env.local`, runs `run-local.js`).
 
 ### Development

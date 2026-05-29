@@ -1,8 +1,13 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
-import { buildAdaptiveCardPayload } from '../lib/adaptiveCard';
+import {
+  buildAdaptiveCardContent,
+  buildAdaptiveCardPayload,
+} from '../lib/adaptiveCard';
 import { I18n } from '../lib/i18n';
 import type { AggregatedTestResults } from '../lib/types';
+import referenceResults from '../fixtures/reference-aggregated-results-pt.json';
+import referenceCard from '../fixtures/reference-adaptive-card-pt.json';
 
 const baseResults: AggregatedTestResults = {
   totalTests: 5,
@@ -66,5 +71,17 @@ describe('buildAdaptiveCardPayload', () => {
   it('uses Portuguese strings', () => {
     const i18n = new I18n('pt-PT');
     assert.equal(i18n.t('sectionFailed'), 'Testes falhados');
+  });
+
+  it('matches legacy bash-style Portuguese failure card', () => {
+    const i18n = new I18n('pt-PT');
+    const results = referenceResults as AggregatedTestResults;
+    const card = buildAdaptiveCardContent(results, i18n, {
+      buildUrl:
+        'https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab',
+      title: 'Testes com falha/inconclusivos',
+      isSuccess: false,
+    });
+    assert.deepEqual(card, referenceCard);
   });
 });

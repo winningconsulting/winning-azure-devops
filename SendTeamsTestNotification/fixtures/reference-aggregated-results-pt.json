@@ -1,0 +1,66 @@
+{
+  "totalTests": 109,
+  "totalPassed": 98,
+  "totalFailed": 11,
+  "totalInconclusive": 0,
+  "failedListCount": 11,
+  "inconclusiveListCount": 0,
+  "failedEntries": [
+    {
+      "resultId": 100001,
+      "testName": "BulkAddProductAttributes_WhenAddingProductsSeparatedBySemicolon_ShouldSaveSuccessfully",
+      "link": "https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100001"
+    },
+    {
+      "resultId": 100020,
+      "testName": "BulkEditProductAttributes_WhenSettingToNegativeState_ShouldSetItemsAsInactiveOnline",
+      "link": "https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100020"
+    },
+    {
+      "resultId": 100031,
+      "testName": "BulkEditProductAttributes_WhenAddingNewCollectionDateByModal_ShouldShowSuccessMessage",
+      "link": "https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100031"
+    },
+    {
+      "resultId": 100032,
+      "testName": "BulkEditCommunicationTypes_WhenAddingCommunicationTypeToProduct_ShouldSaveSuccessfully",
+      "link": "https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100032"
+    },
+    {
+      "resultId": 100033,
+      "testName": "BulkEditProductAttributes_WhenActivatingActivedOnline_ShouldShowSuccessMessage",
+      "link": "https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100033"
+    },
+    {
+      "resultId": 100056,
+      "testName": "BulkEditProductAttributes_WhenUpdatingMultipleAttributes_ShouldShowSuccessMessage",
+      "link": "https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100056"
+    },
+    {
+      "resultId": 100071,
+      "testName": "BulkEditProductAttributes_WhenAddingLabelToMultipleItems_ShouldShowSuccessMessage",
+      "link": "https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100071"
+    },
+    {
+      "resultId": 100072,
+      "testName": "BulkEditDeleteCommunicationType_WhenDeletingCommunicationType_ShouldDeleteSuccessfully",
+      "link": "https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100072"
+    },
+    {
+      "resultId": 100087,
+      "testName": "BulkEditProductAttributes_WhenActivatingComingSoonByModal_ShouldShowSuccessMessage",
+      "link": "https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100087"
+    },
+    {
+      "resultId": 100088,
+      "testName": "BulkEditProductAttributes_WhenDeactivatingActivedOnline_ShouldShowSuccessMessage",
+      "link": "https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100088"
+    },
+    {
+      "resultId": 100089,
+      "testName": "BulkEditProductLabels_WhenRemovingLabel_ShouldShowSuccessMessage",
+      "link": "https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100089"
+    }
+  ],
+  "inconclusiveEntries": []
+}

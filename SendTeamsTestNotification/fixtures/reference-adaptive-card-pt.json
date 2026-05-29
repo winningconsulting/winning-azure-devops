@@ -1,0 +1,42 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "Large",
+      "weight": "Bolder",
+      "text": "Testes com falha/inconclusivos",
+      "color": "Attention"
+    },
+    {
+      "type": "TextBlock",
+      "text": "**Total:** 109 testes\n**✅ Passaram:** 98\n**❌ Falharam:** 11\n**⚠️ Inconclusivos:** 0",
+      "wrap": true,
+      "spacing": "Small"
+    },
+    {
+      "type": "TextBlock",
+      "text": "**Testes falhados:**",
+      "weight": "Bolder",
+      "size": "Small",
+      "spacing": "Medium",
+      "separator": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "1. [BulkAddProductAttributes_WhenAddingProductsSeparatedBySemicolon_ShouldSaveSuccessfully](https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100001)\n2. [BulkEditProductAttributes_WhenSettingToNegativeState_ShouldSetItemsAsInactiveOnline](https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100020)\n3. [BulkEditProductAttributes_WhenAddingNewCollectionDateByModal_ShouldShowSuccessMessage](https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100031)\n4. [BulkEditCommunicationTypes_WhenAddingCommunicationTypeToProduct_ShouldSaveSuccessfully](https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100032)\n5. [BulkEditProductAttributes_WhenActivatingActivedOnline_ShouldShowSuccessMessage](https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100033)\n6. [BulkEditProductAttributes_WhenUpdatingMultipleAttributes_ShouldShowSuccessMessage](https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100056)\n7. [BulkEditProductAttributes_WhenAddingLabelToMultipleItems_ShouldShowSuccessMessage](https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100071)\n8. [BulkEditDeleteCommunicationType_WhenDeletingCommunicationType_ShouldDeleteSuccessfully](https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100072)\n9. [BulkEditProductAttributes_WhenActivatingComingSoonByModal_ShouldShowSuccessMessage](https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100087)\n10. [BulkEditProductAttributes_WhenDeactivatingActivedOnline_ShouldShowSuccessMessage](https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100088)\n11. [BulkEditProductLabels_WhenRemovingLabel_ShouldShowSuccessMessage](https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab&runId=1034455&testRunId=1034455&resultId=100089)",
+      "wrap": true,
+      "spacing": "Small",
+      "fontType": "Monospace"
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "Ver detalhes",
+      "url": "https://dev.azure.com/parfois/E-Parfois/_build/results?buildId=55659&view=ms.vss-test-web.build-test-results-tab"
+    }
+  ]
+}
