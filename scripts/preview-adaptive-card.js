@@ -106,15 +106,15 @@ Output:
 }
 
 function requireBuiltTask() {
-  const adaptiveCardJs = path.join(taskRoot, 'lib', 'lib', 'adaptiveCard.js');
+  const adaptiveCardJs = path.join(taskRoot, 'lib', 'adaptiveCard.js');
   if (!fs.existsSync(adaptiveCardJs)) {
     console.error('Task not built. Run: npm run build');
     process.exit(1);
   }
   return {
     adaptiveCardJs,
-    adoClientJs: path.join(taskRoot, 'lib', 'lib', 'adoClient.js'),
-    i18nJs: path.join(taskRoot, 'lib', 'lib', 'i18n.js'),
+    adoClientJs: path.join(taskRoot, 'lib', 'adoClient.js'),
+    i18nJs: path.join(taskRoot, 'lib', 'i18n.js'),
   };
 }
 

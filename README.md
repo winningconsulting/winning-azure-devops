@@ -33,23 +33,25 @@ Publisher **Winning**, extension **winning-azure-devops**. Install the `.vsix` i
 
 Other inputs use pipeline defaults (`buildId`, `organizationUri`, `projectName`, `language`, and so on).
 
+### Task inputs
+
+| Input | Required | Default | Description |
+|--------|----------|---------|-------------|
+| `teamsWebhookUrl` | Yes | — | Teams incoming webhook URL (secret) |
+| `buildId` | Yes | `$(Build.BuildId)` | Build to inspect |
+| `organizationUri` | Yes | `$(System.TeamFoundationCollectionUri)` | Collection URL |
+| `projectName` | Yes | `$(System.TeamProject)` | Project name |
+| `language` | No | `en` | `en` or `pt-PT` (text of the published notification) |
+| `cardTitle` | No | — | Override card title (localized default if empty) |
+| `openAttachmentsPane` | No | `false` | Per-test links send directly to the attachments pane |
+| `debugMode` | No | `false` | Print full notification JSON to the console (still POSTs unless skipped by policy) |
+| `notifyOnSuccess` | No | `false` | Also POST when all tests passed |
+
 ### Usage — without installing the extension (template)
 
-If you cannot install organization extensions, check out this repository in the pipeline and run the task via the included YAML template (same behavior as the extension task).
-
-The template builds the task from source and runs it through `scripts/run-local.js` in a **Bash** step, so the pipeline must expose the build’s OAuth token to that script. Enable **Allow scripts to access the OAuth token** on the job; the template maps `$(System.AccessToken)` to `SYSTEM_ACCESSTOKEN` for the script (you do not need a separate `env` block in your YAML unless you customize the template).
-
-Reference the public GitHub repo (create a **GitHub** service connection in Azure DevOps if needed; it can access public repositories):
+If you cannot install organization extensions, add [`templates/send-teams-test-notification.yml`](templates/send-teams-test-notification.yml) to **your** pipeline repository. The template clones the **public** GitHub repository over HTTPS, builds the task, and runs the core logic of the task from [`scripts/run-local.js`](scripts/run-local.js) in a **Bash** step.
 
 ```yaml
-resources:
-  repositories:
-    - repository: winningAzureDevOpsLibrary
-      type: github
-      name: winningconsulting/winning-azure-devops
-      endpoint: YourGitHubServiceConnection  # name of the GitHub service connection in your project
-      ref: refs/heads/main  # optional: pin branch or tag
-
 stages:
   - stage: Test
     jobs:
@@ -65,25 +67,15 @@ stages:
         variables:
           TeamsWebhookUrl: $(TeamsWebhookUrl)  # secret
         steps:
-          - checkout: winningAzureDevOpsLibrary
-          - template: templates/send-teams-test-notification.yml@winningAzureDevOpsLibrary
+          - template: .azure-pipelines/send-teams-test-notification.yml
             parameters:
               teamsWebhookUrl: $(TeamsWebhookUrl)
 ```
 
-### Task inputs
-
-| Input | Required | Default | Description |
-|--------|----------|---------|-------------|
-| `teamsWebhookUrl` | Yes | — | Teams incoming webhook URL (secret) |
-| `buildId` | Yes | `$(Build.BuildId)` | Build to inspect |
-| `organizationUri` | Yes | `$(System.TeamFoundationCollectionUri)` | Collection URL |
-| `projectName` | Yes | `$(System.TeamProject)` | Project name |
-| `language` | No | `en` | `en` or `pt-PT` (text of the published notification) |
-| `cardTitle` | No | — | Override card title (localized default if empty) |
-| `openAttachmentsPane` | No | `false` | Per-test links send directly to the attachments pane |
-| `debugMode` | No | `false` | Print full notification JSON to the console (still POSTs unless skipped by policy) |
-| `notifyOnSuccess` | No | `false` | Also POST when all tests passed |
+Besides all the same inputs as the task, the template also supports:
+* `toolkitRepoUrl` - The repo where it downloads the task from - default is `https://github.com/winningconsulting/winning-azure-devops.git`
+* `toolkitRef` - The specific git reference (version) to download - default is `main`
+* `toolkitDir` - to define the directory where it downloads the task from - default is `$(Agent.BuildDirectory)/winning-azure-devops`
 
 ### Contributing
 

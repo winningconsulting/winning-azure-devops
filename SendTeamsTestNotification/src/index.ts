@@ -1,8 +1,8 @@
 import * as tl from 'azure-pipelines-task-lib/task';
-import { AdoTestResultsClient } from './lib/adoClient';
-import { buildAdaptiveCardPayload } from './lib/adaptiveCard';
-import { I18n, parseLanguage } from './lib/i18n';
-import { errors, log } from './lib/logMessages';
+import { AdoTestResultsClient } from './adoClient';
+import { buildAdaptiveCardPayload } from './adaptiveCard';
+import { I18n, parseLanguage } from './i18n';
+import { errors, log } from './logMessages';
 
 async function postWebhook(url: string, payload: object): Promise<number> {
   const res = await fetch(url, {
@@ -79,7 +79,7 @@ async function run(): Promise<void> {
     buildId,
     openAttachmentsPane,
     getAccessToken: () => auth,
-    onWarning: (msg) => console.warn(`⚠ ${msg}`),
+    onWarning: (msg: string) => console.warn(`⚠ ${msg}`),
   });
 
   console.log(log.fetchingResults(buildId));

@@ -2,8 +2,8 @@ import { describe, it, mock, afterEach } from 'node:test';
 import assert from 'node:assert';
 import * as fs from 'fs';
 import * as path from 'path';
-import { AdoTestResultsClient } from '../lib/adoClient';
-import type { TestResultEntry } from '../lib/types';
+import { AdoTestResultsClient } from '../src/adoClient';
+import type { TestResultEntry } from '../src/types';
 
 function makeEntries(count: number): TestResultEntry[] {
   return Array.from({ length: count }, (_, i) => ({

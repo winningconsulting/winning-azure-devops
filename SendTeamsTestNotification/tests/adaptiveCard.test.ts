@@ -3,9 +3,9 @@ import assert from 'node:assert';
 import {
   buildAdaptiveCardContent,
   buildAdaptiveCardPayload,
-} from '../lib/adaptiveCard';
-import { I18n } from '../lib/i18n';
-import type { AggregatedTestResults } from '../lib/types';
+} from '../src/adaptiveCard';
+import { I18n } from '../src/i18n';
+import type { AggregatedTestResults } from '../src/types';
 import referenceResults from '../fixtures/reference-aggregated-results-pt.json';
 import referenceCard from '../fixtures/reference-adaptive-card-pt.json';
 
