@@ -49,33 +49,14 @@ Other inputs use pipeline defaults (`buildId`, `organizationUri`, `projectName`,
 
 ### Usage — without installing the extension (template)
 
-If you cannot install organization extensions, add [`templates/send-teams-test-notification.yml`](templates/send-teams-test-notification.yml) to **your** pipeline repository. The template clones the **public** GitHub repository over HTTPS, builds the task, and runs the core logic of the task from [`scripts/run-local.js`](scripts/run-local.js) in a **Bash** step.
-
-```yaml
-stages:
-  - stage: Test
-    jobs:
-      - job: RunTests
-        steps:
-          - checkout: self
-          # ... run tests ...
-
-      - job: NotifyTeams
-        dependsOn: RunTests
-        condition: failed()
-
-        variables:
-          TeamsWebhookUrl: $(TeamsWebhookUrl)  # secret
-        steps:
-          - template: .azure-pipelines/send-teams-test-notification.yml
-            parameters:
-              teamsWebhookUrl: $(TeamsWebhookUrl)
-```
+If you cannot install organization extensions, you can add [`templates/send-teams-test-notification.yml`](templates/send-teams-test-notification.yml) to **your** pipeline repository. The template clones the **public** GitHub repository over HTTPS, builds the task, and runs the core logic of the task from [`scripts/run-local.js`](scripts/run-local.js) in a **Bash** step. 
 
 Besides all the same inputs as the task, the template also supports:
 * `toolkitRepoUrl` - The repo where it downloads the task from - default is `https://github.com/winningconsulting/winning-azure-devops.git`
 * `toolkitRef` - The specific git reference (version) to download - default is `main`
 * `toolkitDir` - to define the directory where it downloads the task from - default is `$(Agent.BuildDirectory)/winning-azure-devops`
+
+You can also add the extension repository as a submodule to your project and follow the instructions in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 ### Contributing
 
